@@ -1,4 +1,4 @@
-# Fsharpx.RadixTree
+# FSharpx.RadixTree
 This is an attempt to practice F# by (perhaps) creating something useful in the process.
 
 My objective is to create a general-purpose implementation of a Relaxed Radix Balanced tree, based on the 
