@@ -16,22 +16,22 @@ let ``Default index block size can be overridden``() =
 
 [<Fact>]
 let ``Empty tree has length 0``() =
-    RadixBalancedTree.empty<int>
+    RadixBalancedTree.empty
     |> RadixBalancedTree.length |> should equal 0<items>
 
 [<Fact>]
 let ``Empty tree has depth 0``() =
-    RadixBalancedTree.empty<int>
+    RadixBalancedTree.empty
     |> RadixBalancedTree.depth |> should equal 0<lvl>
 
 [<Fact>]
 let ``Empty tree has no root node``() =
-    RadixBalancedTree.empty<int>
+    RadixBalancedTree.empty
     |> RadixBalancedTree.root |> isAnEmptyNode |> should be True
 
 [<Fact>]
 let ``Start and end index of an empty tree are 0``() =
-    let t = RadixBalancedTree.empty<int>
+    let t = RadixBalancedTree.empty
 
     RadixBalancedTree.startIndex t |> should equal 0<pos>
     RadixBalancedTree.endIndex t |> should equal 0<pos>

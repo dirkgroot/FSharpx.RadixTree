@@ -1,13 +1,8 @@
 namespace FSharpx.RadixTree
 
-[<Measure>]
-type lvl
-
-[<Measure>]
-type pos
-
-[<Measure>]
-type items
+[<Measure>] type lvl
+[<Measure>] type pos
+[<Measure>] type items
 
 type Node<'T> =
     | None
@@ -31,11 +26,11 @@ module RadixBalancedTree =
 
     /// Returns the radix of the tree. The radix is calculated as follows:
     /// <c>(1 <<< radixBits) - 1</c>
-    val radix : RadixBalancedTree<_> -> int
+    val radix: RadixBalancedTree<_> -> int
 
     /// Returns the number of items in the tree.
     val length: RadixBalancedTree<_> -> int<items>
-    
+
     /// Returns the depth of the tree.
     val depth: RadixBalancedTree<_> -> int<lvl>
 

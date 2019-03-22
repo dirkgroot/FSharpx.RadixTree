@@ -1,13 +1,10 @@
 namespace FSharpx.RadixTree
 
-[<Measure>]
-type lvl
+open System
 
-[<Measure>]
-type pos
-
-[<Measure>]
-type items
+[<Measure>] type lvl
+[<Measure>] type pos
+[<Measure>] type items
 
 type Node<'T> =
     | None
@@ -15,12 +12,24 @@ type Node<'T> =
     | Leaf of 'T array
 
 type RadixBalancedTree<'T>(radixBits: int, depth: int<lvl>, endIndex: int<pos>, root: Node<'T>) =
+    let radix = 1 <<< radixBits
+
     member this.RadixBits = radixBits
+    member this.Radix = radix
 
     member this.Root: Node<'T> = root
     member this.Depth = depth
     member this.StartIndex = 0<pos>
     member this.EndIndex = endIndex
+
+    member this.Append newValue =
+        let values = match root with
+                     | None -> Array.zeroCreate radix
+                     | Branch _ -> raise (new NotImplementedException())
+                     | Leaf items -> Array.copy items
+
+        values.[int endIndex] <- newValue
+        RadixBalancedTree<'T>(radixBits, 1<lvl>, endIndex + 1<pos>, Leaf values)
 
 module RadixBalancedTree =
     [<Literal>]
@@ -30,15 +39,11 @@ module RadixBalancedTree =
     let emptyWithRadixBits<'T> (radixBits: int) = RadixBalancedTree<'T>(radixBits, 0<lvl>, 0<pos>, None)
 
     let radixBits (t: RadixBalancedTree<_>) = t.RadixBits
-    let radix (t: RadixBalancedTree<_>) = (1 <<< t.RadixBits) - 1
-    let length (t: RadixBalancedTree<_>) =  (t.EndIndex - t.StartIndex) * 1<items/pos>
+    let radix (t: RadixBalancedTree<_>) = t.Radix
+    let length (t: RadixBalancedTree<_>) = (t.EndIndex - t.StartIndex) * 1<items/pos>
     let depth (t: RadixBalancedTree<_>) = t.Depth
     let root (t: RadixBalancedTree<_>) = t.Root
     let startIndex (t: RadixBalancedTree<_>) = t.StartIndex
     let endIndex (t: RadixBalancedTree<_>) = t.EndIndex
 
-    let append (newValue: 'T) (t: RadixBalancedTree<'T>) =
-        let values = Array.zeroCreate (radix t)
-
-        values.[0] <- newValue
-        RadixBalancedTree<'T>(t.RadixBits, 1<lvl>, 1<pos>, Leaf values)
+    let append (newValue: 'T) (t: RadixBalancedTree<'T>) = t.Append newValue
