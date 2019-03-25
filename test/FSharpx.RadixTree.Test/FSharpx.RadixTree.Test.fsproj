@@ -9,7 +9,8 @@
     <ItemGroup>
         <Compile Include="RadixBalancedTree\Helpers.fs" />
         <Compile Include="RadixBalancedTree\BasicPropertyTests.fs" />
-        <Compile Include="RadixBalancedTree\AppendingTests.fs" />
+        <Compile Include="RadixBalancedTree\Appending\EmptyTree.fs" />
+        <Compile Include="RadixBalancedTree\Appending\NonEmptyNonFullOneDeep.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
