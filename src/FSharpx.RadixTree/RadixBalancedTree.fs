@@ -33,9 +33,9 @@ type RadixBalancedTree<'T>(radixBits: int, depth: int<lvl>, endIndex: int<pos>, 
 
 module RadixBalancedTree =
     [<Literal>]
-    let DefaultIndexBlockSize = 5
+    let DefaultRadixBits = 5
 
-    let empty<'T> = RadixBalancedTree<'T>(DefaultIndexBlockSize, 0<lvl>, 0<pos>, None)
+    let empty<'T> = RadixBalancedTree<'T>(DefaultRadixBits, 0<lvl>, 0<pos>, None)
     let emptyWithRadixBits<'T> (radixBits: int) = RadixBalancedTree<'T>(radixBits, 0<lvl>, 0<pos>, None)
 
     let radixBits (t: RadixBalancedTree<_>) = t.RadixBits
