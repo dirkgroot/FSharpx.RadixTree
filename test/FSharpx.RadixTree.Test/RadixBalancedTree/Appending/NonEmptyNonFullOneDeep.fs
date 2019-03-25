@@ -32,3 +32,10 @@ let ``The new leaf node has the new item appended``() =
     twoItems |> RadixBalancedTree.root |> getLeafNodeItems |> should equal [| 1; 2; 0; 0 |]
     threeItems |> RadixBalancedTree.root |> getLeafNodeItems |> should equal [| 1; 2; 3; 0 |]
     fourItems |> RadixBalancedTree.root |> getLeafNodeItems |> should equal [| 1; 2; 3; 4 |]
+
+[<Fact>]
+let ``The new leaf node has an updated endIndex``() =
+    let tree = RadixBalancedTree.empty |> RadixBalancedTree.append 1
+
+    RadixBalancedTree.startIndex tree |> should equal 0<pos>
+    RadixBalancedTree.endIndex tree |> should equal 1<pos>
