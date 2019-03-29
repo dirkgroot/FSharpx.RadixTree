@@ -23,10 +23,11 @@ type RadixBalancedTree<'T>(radixBits: int, depth: int<lvl>, endIndex: int<pos>, 
     member this.EndIndex = endIndex
 
     member this.Append newValue =
-        let values = match root with
-                     | None -> Array.zeroCreate radix
-                     | Branch _ -> raise (new NotImplementedException())
-                     | Leaf items -> Array.copy items
+        let values =
+            match root with
+            | None -> Array.zeroCreate radix
+            | Branch _ -> raise (new NotImplementedException())
+            | Leaf items -> Array.copy items
 
         values.[int endIndex] <- newValue
         RadixBalancedTree<'T>(radixBits, 1<lvl>, endIndex + 1<pos>, Leaf values)

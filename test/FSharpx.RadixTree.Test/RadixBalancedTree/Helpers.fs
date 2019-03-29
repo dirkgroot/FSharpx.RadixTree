@@ -1,7 +1,6 @@
 [<AutoOpen>]
 module FSharpx.RadixTree.Test.RadixBalancedTree.Helpers
 
-open System
 open FSharpx.RadixTree
 
 let isAnEmptyNode = function
@@ -14,7 +13,7 @@ let isALeafNode = function
     | Branch _ -> false
     | Leaf _ -> true
 
-let getLeafNodeItems = function
-    | None -> raise (new ArgumentException())
-    | Branch _ -> raise (new ArgumentException())
+let getLeafNodeItems node =
+    match node with
     | Leaf items -> items
+    | _ -> invalidArg "leafNode" "Only Leaf nodes are supported"

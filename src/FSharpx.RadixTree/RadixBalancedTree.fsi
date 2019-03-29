@@ -25,7 +25,7 @@ module RadixBalancedTree =
     val radixBits: RadixBalancedTree<_> -> int
 
     /// Returns the radix of the tree. The radix is calculated as follows:
-    /// <c>(1 <<< radixBits) - 1</c>
+    /// <c>1 <<< radixBits</c>
     val radix: RadixBalancedTree<_> -> int
 
     /// Returns the number of items in the tree.
