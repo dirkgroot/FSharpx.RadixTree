@@ -15,6 +15,11 @@ let ``Default index block size can be overridden``() =
     |> RadixBalancedTree.radixBits |> should equal 1
 
 [<Fact>]
+let ``The radix can be requested``() =
+    RadixBalancedTree.empty |> RadixBalancedTree.radix |> should equal 32
+    RadixBalancedTree.emptyWithRadixBits 1 |> RadixBalancedTree.radix |> should equal 2
+
+[<Fact>]
 let ``Empty tree has length 0``() =
     RadixBalancedTree.empty
     |> RadixBalancedTree.length |> should equal 0<items>
