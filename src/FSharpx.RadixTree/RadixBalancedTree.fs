@@ -14,6 +14,8 @@ type Node<'T> =
 type RadixBalancedTree<'T>(radixBits: int, depth: int<lvl>, endIndex: int<pos>, root: Node<'T>) =
     let radix = 1 <<< radixBits
 
+    let appendNeedsNewRoot = int endIndex &&& radix > 0
+
     member this.RadixBits = radixBits
     member this.Radix = radix
 
@@ -23,14 +25,27 @@ type RadixBalancedTree<'T>(radixBits: int, depth: int<lvl>, endIndex: int<pos>, 
     member this.EndIndex = endIndex
 
     member this.Append newValue =
-        let values =
-            match root with
-            | None -> Array.zeroCreate radix
-            | Branch _ -> raise (new NotImplementedException())
-            | Leaf items -> Array.copy items
+        let newRoot =
+            if appendNeedsNewRoot then
+                let rootValues = Array.create radix None
+                let leafValues = Array.zeroCreate radix
 
-        values.[int endIndex] <- newValue
-        RadixBalancedTree<'T>(radixBits, 1<lvl>, endIndex + 1<pos>, Leaf values)
+                leafValues.[0] <- newValue
+                rootValues.[0] <- root
+                rootValues.[1] <- Leaf leafValues
+
+                Branch rootValues
+            else
+                let values =
+                    match root with
+                    | None -> Array.zeroCreate radix
+                    | Branch _ -> raise (new NotImplementedException())
+                    | Leaf items -> Array.copy items
+
+                values.[int endIndex] <- newValue
+                Leaf values
+
+        RadixBalancedTree<'T>(radixBits, 1<lvl>, endIndex + 1<pos>, newRoot)
 
 module RadixBalancedTree =
     [<Literal>]

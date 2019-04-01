@@ -12,6 +12,7 @@
         <Compile Include="RadixBalancedTree\BasicPropertyTests.fs" />
         <Compile Include="RadixBalancedTree\Appending\EmptyTree.fs" />
         <Compile Include="RadixBalancedTree\Appending\NonEmptyNonFullOneDeep.fs" />
+        <Compile Include="RadixBalancedTree\Appending\FullOneDeep.fs" />
     </ItemGroup>
 
     <ItemGroup>
